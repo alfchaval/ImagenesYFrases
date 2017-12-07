@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.alfonso.imagenesyfrases.MainActivity"
+    >
+
+    <LinearLayout
+        android:id="@+id/ll_imagenes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/txv_imagenes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Imágenes:"
+            />
+
+        <EditText
+            android:id="@+id/edt_imagenes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="http://alumno.mobi/~alumno/superior/chamorro/imagenes.txt"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_frases"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/txv_frases"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Frases:"
+            />
+
+        <EditText
+            android:id="@+id/edt_frases"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="http://alumno.mobi/~alumno/superior/chamorro/frases.txt"
+            />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_descargar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Descargar"
+        />
+
+    <ImageView
+        android:id="@+id/imv_res"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <TextView
+        android:id="@+id/txv_res"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        />
+
+</LinearLayout>
