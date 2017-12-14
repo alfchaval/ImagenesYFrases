@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.icu.util.Calendar;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
     private CountDownTimer timer;
 
+    private Picasso.Builder builder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +62,14 @@ public class MainActivity extends AppCompatActivity {
         txv_res = (TextView) findViewById(R.id.txv_res);
 
         leerIntervalo();
+
+        builder = new Picasso.Builder(this);
+        builder.listener(new Picasso.Listener() {
+            @Override
+            public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+                notificarError("Error al cargar la imagen " + (indice_imagenes + 1));
+            }
+        });
 
         btn_descargar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,11 +125,13 @@ public class MainActivity extends AppCompatActivity {
                 if (dato == IMAGEN) {
                     galeria_imagenes = responseString.split("\n");
                     indice_imagenes = -1;
+                    timer.start();
                     cargarImagenes();
 
                 } else if (dato == FRASE) {
                     galeria_frases = responseString.split("\n");
                     indice_frases = -1;
+                    timer.start();
                     cargarFrases();
                 }
             }
@@ -160,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
         if (galeria_imagenes != null && galeria_imagenes.length > 0) {
             indice_imagenes = (indice_imagenes + 1) % galeria_imagenes.length;
             try {
-                Picasso.with(MainActivity.this).load(galeria_imagenes[indice_imagenes]).error(R.mipmap.ic_launcher).into(imv_res);
+                builder.build().load(galeria_imagenes[indice_imagenes]).error(R.mipmap.ic_launcher).into(imv_res);
             } catch (Exception e) {
                 notificarError("Error al cargar la imagen " + (indice_imagenes + 1) + ", " + e.getMessage());
             }
@@ -207,5 +220,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         return true;
+    }
+
+    @Override
+    protected void onStop() {
+        timer.cancel();
+        super.onStop();
     }
 }
